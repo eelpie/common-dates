@@ -46,6 +46,11 @@ public class DateFormatterTest {
 	}
 	
 	@Test
+	public void canGenerateFullMonthYearFormat() throws Exception {
+		assertEquals("October 2009", dateFormatter.fullMonthYear(onceUponATime));
+	}
+	
+	@Test
 	public void canGenerateDayMonthYearTimeFormat() throws Exception {
 		assertEquals("2 Oct 2009 14:23", dateFormatter.dayMonthYearTime(onceUponATime));
 	}

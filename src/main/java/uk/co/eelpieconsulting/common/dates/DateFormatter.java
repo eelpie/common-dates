@@ -13,6 +13,7 @@ public class DateFormatter {
 	
 	private static final String YYYY = "yyyy";
     private static final String D_MMM_YYYY = "d MMM yyyy";
+    private static final String MMMMM_YYYY = "MMMMM yyyy";
     private static final String D_MMM_YYYY_HHMM = "d MMM yyyy HH:mm";
     
 	public String timeSince(Date then) {        
@@ -44,6 +45,10 @@ public class DateFormatter {
 
 	public String dayMonthYearTime(Date date) {
 		return new SimpleDateFormat(D_MMM_YYYY_HHMM).format(date);
+	}
+	
+	public String fullMonthYear(Date date) {
+		return new SimpleDateFormat(MMMMM_YYYY).format(date);
 	}
 
 	public String year(Date date) {
