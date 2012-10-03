@@ -2,19 +2,22 @@ package uk.co.eelpieconsulting.common.dates;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Date;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
 
 public class DateFormatterTest {
     
-	DateFormatter dateFormatter = new DateFormatter();
+	private final DateFormatter dateFormatter = new DateFormatter();
+	private final Date onceUponATime = new DateTime(2009, 10, 2, 14, 23, 0, 0).toDate();
 	
 	@Test
-    public void testShouldGiveNiceTimeDeltas() throws Exception {    	
+    public void shouldBeAbleToOutputNiceTimeDeltas() throws Exception {    	
     	DateTime now = new DateTime();
     	
     	DateTime lessThanOneMinuteAgo = now.minusSeconds(30);
-    	assertEquals("less than 1 minute ago", dateFormatter.timeSince(lessThanOneMinuteAgo.toDate()));
+    	assertEquals("just now", dateFormatter.timeSince(lessThanOneMinuteAgo.toDate()));
     	
     	DateTime fiveMinutesBefore = now.minusMinutes(5);
         assertEquals("5 minutes ago", dateFormatter.timeSince(fiveMinutesBefore.toDate()));   
@@ -31,5 +34,20 @@ public class DateFormatterTest {
         DateTime oneWeekAgo = now.minusWeeks(1);
         assertEquals("1 week ago", dateFormatter.timeSince(oneWeekAgo.toDate()));                        
     }
-    
+	
+	@Test
+	public void canGenerateYearFormat() throws Exception {
+		assertEquals("2009", dateFormatter.year(onceUponATime));
+	}
+	
+	@Test
+	public void canGenerateShortDayMonthYearFormat() throws Exception {
+		assertEquals("2 Oct 2009", dateFormatter.dayMonthYear(onceUponATime));
+	}
+	
+	@Test
+	public void canGenerateDayMonthYearTimeFormat() throws Exception {
+		assertEquals("2 Oct 2009 14:23", dateFormatter.dayMonthYearTime(onceUponATime));
+	}
+	
 }

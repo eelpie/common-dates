@@ -5,7 +5,7 @@
 	<artifactId>common-dates</artifactId>
 	<packaging>jar</packaging>
 	<name>common-dates</name>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<description>Common date functions</description>
 
 	<build>
@@ -29,7 +29,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 			</plugin>
-
 		</plugins>
 	</build>
 
