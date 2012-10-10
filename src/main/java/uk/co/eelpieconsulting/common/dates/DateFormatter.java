@@ -16,7 +16,11 @@ public class DateFormatter {
     private static final String MMMMM_YYYY = "MMMMM yyyy";
     private static final String D_MMM_YYYY_HHMM = "d MMM yyyy HH:mm";
     
-	public String timeSince(Date then) {        
+	public String timeSince(Date then) {
+		if (then == null) {
+			return null;
+		}
+		
         final Date now = Calendar.getInstance().getTime();
         final long deltaInMills = now.getTime() - then.getTime();
         
@@ -40,19 +44,19 @@ public class DateFormatter {
     }
 
 	public String dayMonthYear(Date date) {
-		return new SimpleDateFormat(D_MMM_YYYY).format(date);
+		return date != null ? new SimpleDateFormat(D_MMM_YYYY).format(date) : null;
 	}
 
 	public String dayMonthYearTime(Date date) {
-		return new SimpleDateFormat(D_MMM_YYYY_HHMM).format(date);
+		return date != null ? new SimpleDateFormat(D_MMM_YYYY_HHMM).format(date) : null;
 	}
 	
 	public String fullMonthYear(Date date) {
-		return new SimpleDateFormat(MMMMM_YYYY).format(date);
+		return date != null ? new SimpleDateFormat(MMMMM_YYYY).format(date) : null;
 	}
 
 	public String year(Date date) {
-		return new SimpleDateFormat(YYYY).format(date);
+		return date != null ? new SimpleDateFormat(YYYY).format(date) : null;
 	}
     
 }
