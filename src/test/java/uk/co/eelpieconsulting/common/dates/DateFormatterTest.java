@@ -55,4 +55,19 @@ public class DateFormatterTest {
 		assertEquals("2 Oct 2009 14:23", dateFormatter.dayMonthYearTime(onceUponATime));
 	}
 	
+	@Test
+	public void canGenerateW3CDateTimeFormattedDate() throws Exception {		
+		assertEquals("2009-10-02T02:23:00+0100", dateFormatter.w3cDateTime(onceUponATime));
+	}
+	
+	@Test
+	public void canGenerateYearMonthDayUrlStub() throws Exception {		
+		assertEquals("2009/oct/2", dateFormatter.yearMonthDayUrlStub(onceUponATime));
+	}
+	
+	@Test
+	public void canGenerateYearMonthUrlStub() throws Exception {		
+		assertEquals("2009/oct", dateFormatter.yearMonthUrlStub(onceUponATime));
+	}
+	
 }
