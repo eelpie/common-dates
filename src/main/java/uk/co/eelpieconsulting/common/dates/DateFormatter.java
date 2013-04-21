@@ -16,7 +16,9 @@ public class DateFormatter {
     private static final String D_MMM_YYYY = "d MMM yyyy";
     private static final String MMMMM_YYYY = "MMMMM yyyy";
     private static final String D_MMM_YYYY_HHMM = "d MMM yyyy HH:mm";
-    private static final String W3C_DATETIME_FORMAT = "yyyy-MM-dd'T'hh:mm:ssZZ";
+    private static final String D_MMM_YYYY_HHMMSS = "d MMM yyyy HH:mm:ss";
+
+    private static final String W3C_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZZ";
 
 	public String timeSince(Date then) {
 		if (then == null) {
@@ -51,6 +53,10 @@ public class DateFormatter {
 
 	public String dayMonthYearTime(Date date) {
 		return date != null ? new SimpleDateFormat(D_MMM_YYYY_HHMM).format(date) : null;
+	}
+	
+	public String dayMonthYearTimeWithSeconds(Date date) {
+		return date != null ? new SimpleDateFormat(D_MMM_YYYY_HHMMSS).format(date) : null;
 	}
 	
 	public String fullMonthYear(Date date) {

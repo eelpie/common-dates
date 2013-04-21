@@ -10,7 +10,7 @@ import org.junit.Test;
 public class DateFormatterTest {
     
 	private final DateFormatter dateFormatter = new DateFormatter();
-	private final Date onceUponATime = new DateTime(2009, 10, 2, 14, 23, 0, 0).toDate();
+	private final Date onceUponATime = new DateTime(2009, 10, 2, 14, 23, 10, 0).toDate();
 	
 	@Test
     public void shouldBeAbleToOutputNiceTimeDeltas() throws Exception {    	
@@ -56,8 +56,13 @@ public class DateFormatterTest {
 	}
 	
 	@Test
+	public void canGenerateDayMonthYearTimeWithSecondsFormat() throws Exception {
+		assertEquals("2 Oct 2009 14:23:10", dateFormatter.dayMonthYearTimeWithSeconds(onceUponATime));
+	}
+	
+	@Test
 	public void canGenerateW3CDateTimeFormattedDate() throws Exception {		
-		assertEquals("2009-10-02T02:23:00+0100", dateFormatter.w3cDateTime(onceUponATime));
+		assertEquals("2009-10-02T14:23:10+0100", dateFormatter.w3cDateTime(onceUponATime));
 	}
 	
 	@Test
