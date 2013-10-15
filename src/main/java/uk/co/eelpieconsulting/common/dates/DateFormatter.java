@@ -28,6 +28,22 @@ public class DateFormatter {
         final Date now = Calendar.getInstance().getTime();
         final long deltaInMills = now.getTime() - then.getTime();
         
+        if (deltaInMills < 0) {
+        	if (deltaInMills < -ONE_DAY) {
+        		final int days = -Math.round((deltaInMills / (1000 * 60 * 60 * 24)));
+        		return days + (days == 1 ? " day" : " days");
+        	}
+			if (deltaInMills < -ONE_HOUR) {
+				final int hours = -Math.round((deltaInMills / (1000 * 60 * 60)));
+				return hours + (hours == 1 ? " hour" : " hours");
+			}
+			if (deltaInMills < -ONE_MINUTE) {
+				final int minutes = -Math.round(deltaInMills / (1000 * 60));
+				return minutes + (minutes == 1 ? " minute" : " minutes");
+			}
+			return "just now";
+        }
+        
         if (deltaInMills > ONE_WEEK) {
         	final int weeks = Math.round((deltaInMills / (1000 * 60 * 60 * 24 * 7)));        	
         	return weeks + (weeks == 1 ? " week ago" : " weeks ago"); 
@@ -43,7 +59,7 @@ public class DateFormatter {
         if (deltaInMills > ONE_MINUTE) {        	
         	final int minutes = Math.round(deltaInMills / (1000 * 60));
         	return minutes + (minutes == 1 ? " minute ago" : " minutes ago");
-        }        
+        }       
         return "just now";
     }
 

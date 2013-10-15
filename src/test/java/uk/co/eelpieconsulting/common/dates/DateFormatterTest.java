@@ -16,6 +16,12 @@ public class DateFormatterTest {
     public void shouldBeAbleToOutputNiceTimeDeltas() throws Exception {    	
     	DateTime now = new DateTime();
     	
+    	DateTime twoDaysFromNow = now.plusDays(2).plusHours(1);
+        assertEquals("2 days", dateFormatter.timeSince(twoDaysFromNow.toDate()));
+        
+    	DateTime fiveMinutesFromNow = now.plusMinutes(5).plusSeconds(5);
+        assertEquals("5 minutes", dateFormatter.timeSince(fiveMinutesFromNow.toDate()));       	
+    	
     	DateTime lessThanOneMinuteAgo = now.minusSeconds(30);
     	assertEquals("just now", dateFormatter.timeSince(lessThanOneMinuteAgo.toDate()));
     	

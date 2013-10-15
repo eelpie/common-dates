@@ -5,7 +5,7 @@
 	<artifactId>common-dates</artifactId>
 	<packaging>jar</packaging>
 	<name>common-dates</name>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<description>Common date functions</description>
 
 	<build>
