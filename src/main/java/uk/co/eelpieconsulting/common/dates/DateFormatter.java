@@ -104,6 +104,10 @@ public class DateFormatter {
 	}
 	
 	public String secondsToDuration(int seconds) {
+		return secondsToDuration(new Long(seconds));
+	}
+	
+	public String secondsToDuration(long seconds) {
 		final Period period = new Period(seconds * 1000);
 		final StringBuilder output = new StringBuilder();
 		if (period.getHours() > 0) {
