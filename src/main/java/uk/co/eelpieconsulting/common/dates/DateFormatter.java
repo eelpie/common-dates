@@ -1,8 +1,11 @@
 package uk.co.eelpieconsulting.common.dates;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import org.joda.time.Period;
 
 public class DateFormatter {
    
@@ -19,7 +22,8 @@ public class DateFormatter {
     private static final String D_MMM_YYYY_HHMMSS = "d MMM yyyy HH:mm:ss";
 
     private static final String W3C_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZZ";
-
+	private static final DecimalFormat TWO_DIGITS = new DecimalFormat("00");
+	
 	public String timeSince(Date then) {
 		if (then == null) {
 			return null;
@@ -97,6 +101,17 @@ public class DateFormatter {
 
 	public String yearMonthUrlStub(Date date) {
 		return date != null ? new SimpleDateFormat("yyyy/MMM").format(date).toLowerCase() : null;
+	}
+	
+	public String secondsToDuration(int seconds) {
+		final Period period = new Period(seconds * 1000);
+		final StringBuilder output = new StringBuilder();
+		if (period.getHours() > 0) {
+			output.append(TWO_DIGITS.format(period.getHours())+ ":");
+		}
+		output.append(TWO_DIGITS.format(period.getMinutes())+ ":");
+		output.append(TWO_DIGITS.format(period.getSeconds()));		
+		return output.toString();
 	}
 	
 }

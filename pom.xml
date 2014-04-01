@@ -5,7 +5,7 @@
 	<artifactId>common-dates</artifactId>
 	<packaging>jar</packaging>
 	<name>common-dates</name>
-	<version>1.0.6</version>
+	<version>1.0.7</version>
 	<description>Common date functions</description>
 
 	<build>
@@ -36,8 +36,7 @@
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
-			<version>2.0</version>
-			<scope>test</scope>
+			<version>2.1</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

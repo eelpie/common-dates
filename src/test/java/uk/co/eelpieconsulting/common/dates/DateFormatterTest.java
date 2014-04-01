@@ -37,7 +37,7 @@ public class DateFormatterTest {
         DateTime oneDayAgo = now.minusDays(1);
         assertEquals("1 day ago", dateFormatter.timeSince(oneDayAgo.toDate()));
         
-        DateTime oneWeekAgo = now.minusWeeks(1);
+        DateTime oneWeekAgo = now.minusWeeks(1).minusHours(1);
         assertEquals("1 week ago", dateFormatter.timeSince(oneWeekAgo.toDate()));                        
     }
 	
@@ -79,6 +79,16 @@ public class DateFormatterTest {
 	@Test
 	public void canGenerateYearMonthUrlStub() throws Exception {		
 		assertEquals("2009/oct", dateFormatter.yearMonthUrlStub(onceUponATime));
+	}
+	
+	@Test
+	public void canGenerateDurationFromSeconds() throws Exception {
+		assertEquals("04:05", dateFormatter.secondsToDuration(245));
+	}
+	
+	@Test
+	public void shouldShowHoursIdDurationIsAnHourOrMore() throws Exception {
+		assertEquals("01:00:00", dateFormatter.secondsToDuration(3600));
 	}
 	
 }
