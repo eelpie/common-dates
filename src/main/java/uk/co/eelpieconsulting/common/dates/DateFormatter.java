@@ -5,14 +5,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.joda.time.DateTime;
+import org.joda.time.Months;
 import org.joda.time.Period;
 
 public class DateFormatter {
    
-	private static final int ONE_MINUTE = 60 * 1000;
-	private static final int ONE_HOUR = ONE_MINUTE * 60;
-	private static final int ONE_DAY = ONE_HOUR * 24;
-	private static final int ONE_WEEK = ONE_DAY * 7;
+	private static final long ONE_MINUTE = 60 * 1000;
+	private static final long ONE_HOUR = ONE_MINUTE * 60;
+	private static final long ONE_DAY = ONE_HOUR * 24;
+	private static final long ONE_WEEK = ONE_DAY * 7;
+	private static final long ONE_MONTH = ONE_DAY * 31;
 	
 	private static final String MMM = "MMM";
 	private static final String YYYY = "yyyy";
@@ -32,7 +35,15 @@ public class DateFormatter {
         final Date now = Calendar.getInstance().getTime();
         final long deltaInMills = now.getTime() - then.getTime();
         
-        if (deltaInMills < 0) {
+        if (deltaInMills < 0) {        	
+        	if (deltaInMills < -ONE_MONTH) {        		
+        		final long months = Months.monthsBetween(DateTime.now(), new DateTime(then)).getMonths();
+        		return months + (months == 1 ? " month" : " months");
+        	}
+        	if (deltaInMills < -ONE_WEEK) {
+        		final int days = -Math.round((deltaInMills / (1000 * 60 * 60 * 24 * 7)));
+        		return days + (days == 1 ? " week" : " weeks");
+        	}
         	if (deltaInMills < -ONE_DAY) {
         		final int days = -Math.round((deltaInMills / (1000 * 60 * 60 * 24)));
         		return days + (days == 1 ? " day" : " days");
@@ -48,6 +59,10 @@ public class DateFormatter {
 			return "just now";
         }
         
+        if (deltaInMills > ONE_MONTH) {        		
+    		final long months = Months.monthsBetween(new DateTime(then), DateTime.now()).getMonths();
+    		return months + (months == 1 ? " month ago" : " months ago");
+    	}        
         if (deltaInMills > ONE_WEEK) {
         	final int weeks = Math.round((deltaInMills / (1000 * 60 * 60 * 24 * 7)));        	
         	return weeks + (weeks == 1 ? " week ago" : " weeks ago"); 

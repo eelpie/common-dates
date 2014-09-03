@@ -14,13 +14,7 @@ public class DateFormatterTest {
 	
 	@Test
     public void shouldBeAbleToOutputNiceTimeDeltas() throws Exception {    	
-    	DateTime now = new DateTime();
-    	
-    	DateTime twoDaysFromNow = now.plusDays(2).plusHours(1);
-        assertEquals("2 days", dateFormatter.timeSince(twoDaysFromNow.toDate()));
-        
-    	DateTime fiveMinutesFromNow = now.plusMinutes(5).plusSeconds(5);
-        assertEquals("5 minutes", dateFormatter.timeSince(fiveMinutesFromNow.toDate()));       	
+    	final DateTime now = new DateTime();
     	
     	DateTime lessThanOneMinuteAgo = now.minusSeconds(30);
     	assertEquals("just now", dateFormatter.timeSince(lessThanOneMinuteAgo.toDate()));
@@ -38,15 +32,30 @@ public class DateFormatterTest {
         assertEquals("1 day ago", dateFormatter.timeSince(oneDayAgo.toDate()));
         
         DateTime oneWeekAgo = now.minusWeeks(1).minusHours(1);
-        assertEquals("1 week ago", dateFormatter.timeSince(oneWeekAgo.toDate()));                        
+        assertEquals("1 week ago", dateFormatter.timeSince(oneWeekAgo.toDate()));
+        
+        DateTime nineMonthsAgo = now.minusMonths(9).minusWeeks(1);
+        assertEquals("9 months ago", dateFormatter.timeSince(nineMonthsAgo.toDate()));        
     }
 	
 	@Test
-    public void shouldBeAbleToOutputNiceTimeDeltaForDatesInTheFuture() throws Exception {    	
-    	DateTime now = new DateTime();
-
-        DateTime oneWeekAgo = now.plusWeeks(2).plusHours(1);
-        assertEquals("2 weeks", dateFormatter.timeSince(oneWeekAgo.toDate()));                        
+    public void shouldBeAbleToOutputNiceTimeDeltaForDatesInTheFuture() throws Exception {
+		final DateTime now = new DateTime();
+    	
+	  	DateTime fiveMinutesFromNow = now.plusMinutes(5).plusSeconds(5);
+        assertEquals("5 minutes", dateFormatter.timeSince(fiveMinutesFromNow.toDate()));     
+                
+    	DateTime twoDaysFromNow = now.plusDays(2).plusHours(1);
+        assertEquals("2 days", dateFormatter.timeSince(twoDaysFromNow.toDate()));
+          
+        DateTime oneWeekFromNow = now.plusWeeks(1).plusHours(1);
+        assertEquals("1 week", dateFormatter.timeSince(oneWeekFromNow.toDate()));
+        
+        DateTime twoWeeksFromNow = now.plusWeeks(2).plusHours(1);
+        assertEquals("2 weeks", dateFormatter.timeSince(twoWeeksFromNow.toDate()));
+        
+        DateTime sixMonthsFromNow = now.plusMonths(6).plusHours(1);
+        assertEquals("6 months", dateFormatter.timeSince(sixMonthsFromNow.toDate()));
     }
 	
 	@Test
