@@ -42,6 +42,14 @@ public class DateFormatterTest {
     }
 	
 	@Test
+    public void shouldBeAbleToOutputNiceTimeDeltaForDatesInTheFuture() throws Exception {    	
+    	DateTime now = new DateTime();
+
+        DateTime oneWeekAgo = now.plusWeeks(2).plusHours(1);
+        assertEquals("2 weeks", dateFormatter.timeSince(oneWeekAgo.toDate()));                        
+    }
+	
+	@Test
 	public void canGenerateYearFormat() throws Exception {
 		assertEquals("2009", dateFormatter.year(onceUponATime));
 	}
