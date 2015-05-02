@@ -5,12 +5,16 @@ import static org.junit.Assert.assertEquals;
 import java.util.Date;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Test;
 
 public class DateFormatterTest {
     
+	private static final DateTimeZone EUROPE_LONDON = DateTimeZone.forID("Europe/London");
+	
 	private final DateFormatter dateFormatter = new DateFormatter();
-	private final Date onceUponATime = new DateTime(2009, 10, 2, 14, 23, 10, 0).toDate();
+
+	private final Date onceUponATime = new DateTime(2009, 10, 2, 14, 23, 10, 0, EUROPE_LONDON).toDate();
 	
 	@Test
     public void shouldBeAbleToOutputNiceTimeDeltas() throws Exception {    	
