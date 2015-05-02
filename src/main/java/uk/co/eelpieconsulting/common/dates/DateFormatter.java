@@ -22,7 +22,7 @@ public class DateFormatter {
 	
 	private static final String MMM = "MMM";
 	private static final String YYYY = "yyyy";
-    private static final String D_MMM_YYYY = "d MMM yyyy";
+    private static final DateTimeFormatter D_MMM_YYYY = DateTimeFormat.forPattern("d MMM yyyy");
     private static final String MMMMM_YYYY = "MMMMM yyyy";
     private static final String D_MMM_YYYY_HHMM = "d MMM yyyy HH:mm";
     private static final String D_MMM_YYYY_HHMMSS = "d MMM yyyy HH:mm:ss";
@@ -96,8 +96,7 @@ public class DateFormatter {
     }
 
 	public String dayMonthYear(Date date) {
-		DateTimeFormatter formatter = DateTimeFormat.forPattern(D_MMM_YYYY);
-		return date != null ? formatter.print(new DateTime(date, timeZone)) : null;
+		return date != null ? D_MMM_YYYY.print(new DateTime(date, timeZone)) : null;
 	}
 
 	public String dayMonthYearTime(Date date) {
