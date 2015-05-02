@@ -6,11 +6,15 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Months;
 import org.joda.time.Period;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatterBuilder;
 
 public class DateFormatter {
    
+	private static final String SPACE = " ";
 	private static final long ONE_MINUTE = 60 * 1000;
 	private static final long ONE_HOUR = ONE_MINUTE * 60;
 	private static final long ONE_DAY = ONE_HOUR * 24;
@@ -19,14 +23,23 @@ public class DateFormatter {
 	
 	private static final String MMM = "MMM";
 	private static final String YYYY = "yyyy";
-    private static final String D_MMM_YYYY = "d MMM yyyy";
     private static final String MMMMM_YYYY = "MMMMM yyyy";
     private static final String D_MMM_YYYY_HHMM = "d MMM yyyy HH:mm";
     private static final String D_MMM_YYYY_HHMMSS = "d MMM yyyy HH:mm:ss";
 
     private static final String W3C_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZZ";
 	private static final DecimalFormat TWO_DIGITS = new DecimalFormat("00");
+
+	private final DateTimeZone timeZone;
 	
+	public DateFormatter(String timeZoneId) {
+		this.timeZone = DateTimeZone.forID(timeZoneId);		
+	}
+	
+	public DateFormatter(DateTimeZone timeZone) {
+		this.timeZone = timeZone;
+	}
+
 	public String timeSince(Date then) {
 		if (then == null) {
 			return null;
@@ -83,7 +96,8 @@ public class DateFormatter {
     }
 
 	public String dayMonthYear(Date date) {
-		return date != null ? new SimpleDateFormat(D_MMM_YYYY).format(date) : null;
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendDayOfMonth(1).appendLiteral(SPACE).appendMonthOfYearShortText().appendLiteral(SPACE).appendYear(1, 4).toFormatter();
+		return date != null ? formatter.print(new DateTime(date, timeZone)) : null;
 	}
 
 	public String dayMonthYearTime(Date date) {

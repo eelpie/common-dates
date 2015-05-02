@@ -12,7 +12,7 @@ public class DateFormatterTest {
     
 	private static final DateTimeZone EUROPE_LONDON = DateTimeZone.forID("Europe/London");
 	
-	private final DateFormatter dateFormatter = new DateFormatter();
+	private final DateFormatter dateFormatter = new DateFormatter(EUROPE_LONDON);
 
 	private final Date onceUponATime = new DateTime(2009, 10, 2, 14, 23, 10, 0, EUROPE_LONDON).toDate();
 	
