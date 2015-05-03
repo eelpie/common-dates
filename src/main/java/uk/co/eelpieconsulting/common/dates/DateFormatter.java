@@ -25,7 +25,7 @@ public class DateFormatter {
     private static final DateTimeFormatter MMMMM_YYYY = DateTimeFormat.forPattern("MMMMM yyyy");
     private static final DateTimeFormatter D_MMM_YYYY_HHMM = DateTimeFormat.forPattern("d MMM yyyy HH:mm");
     private static final DateTimeFormatter D_MMM_YYYY_HHMMSS = DateTimeFormat.forPattern("d MMM yyyy HH:mm:ss");
-    private static final DateTimeFormatter W3C_DATETIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZZ");	// TODO check usages - not an ISO format?
+    private static final DateTimeFormatter W3C_DATETIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZZ");
 	private static final DateTimeFormatter YEAR_SLASH_MONTH = DateTimeFormat.forPattern("yyyy/MMM");
 	private static final DateTimeFormatter YEAR_SLASH_MONTH_SLASH_DAY = DateTimeFormat.forPattern("yyyy/MMM/d");
 

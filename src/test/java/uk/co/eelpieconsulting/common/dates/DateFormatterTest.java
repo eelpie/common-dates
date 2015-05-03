@@ -89,7 +89,7 @@ public class DateFormatterTest {
 	
 	@Test
 	public void canGenerateW3CDateTimeFormattedDate() throws Exception {		
-		assertEquals("2009-10-02T14:23:10+0100", dateFormatter.w3cDateTime(onceUponATime));
+		assertEquals("2009-10-02T14:23:10+01:00", dateFormatter.w3cDateTime(onceUponATime));
 	}
 	
 	@Test
