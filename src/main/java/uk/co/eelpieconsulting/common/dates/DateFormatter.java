@@ -1,7 +1,6 @@
 package uk.co.eelpieconsulting.common.dates;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -13,23 +12,25 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class DateFormatter {
-   
+
 	private static final long ONE_MINUTE = 60 * 1000;
 	private static final long ONE_HOUR = ONE_MINUTE * 60;
 	private static final long ONE_DAY = ONE_HOUR * 24;
 	private static final long ONE_WEEK = ONE_DAY * 7;
 	private static final long ONE_MONTH = ONE_DAY * 31;
 	
-	private static final String MMM = "MMM";
-	private static final String YYYY = "yyyy";
+	private static final DateTimeFormatter MMM = DateTimeFormat.forPattern("MMM");
+	private static final DateTimeFormatter YYYY = DateTimeFormat.forPattern("yyyy");
     private static final DateTimeFormatter D_MMM_YYYY = DateTimeFormat.forPattern("d MMM yyyy");
-    private static final String MMMMM_YYYY = "MMMMM yyyy";
-    private static final String D_MMM_YYYY_HHMM = "d MMM yyyy HH:mm";
-    private static final String D_MMM_YYYY_HHMMSS = "d MMM yyyy HH:mm:ss";
+    private static final DateTimeFormatter MMMMM_YYYY = DateTimeFormat.forPattern("MMMMM yyyy");
+    private static final DateTimeFormatter D_MMM_YYYY_HHMM = DateTimeFormat.forPattern("d MMM yyyy HH:mm");
+    private static final DateTimeFormatter D_MMM_YYYY_HHMMSS = DateTimeFormat.forPattern("d MMM yyyy HH:mm:ss");
+    private static final DateTimeFormatter W3C_DATETIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZZ");	// TODO check usages - not an ISO format?
+	private static final DateTimeFormatter YEAR_SLASH_MONTH = DateTimeFormat.forPattern("yyyy/MMM");
+	private static final DateTimeFormatter YEAR_SLASH_MONTH_SLASH_DAY = DateTimeFormat.forPattern("yyyy/MMM/d");
 
-    private static final String W3C_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZZ";
 	private static final DecimalFormat TWO_DIGITS = new DecimalFormat("00");
-
+	
 	private final DateTimeZone timeZone;
 	
 	public DateFormatter(String timeZoneId) {
@@ -100,36 +101,35 @@ public class DateFormatter {
 	}
 
 	public String dayMonthYearTime(Date date) {
-		return date != null ? new SimpleDateFormat(D_MMM_YYYY_HHMM).format(date) : null;
+		return date != null ? D_MMM_YYYY_HHMM.print(new DateTime(date, timeZone)) : null;
 	}
 	
 	public String dayMonthYearTimeWithSeconds(Date date) {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(D_MMM_YYYY_HHMMSS);
-		return date != null ? simpleDateFormat.format(date) : null;
+		return date != null ? D_MMM_YYYY_HHMMSS.print(new DateTime(date, timeZone)) : null;
 	}
 	
 	public String fullMonthYear(Date date) {
-		return date != null ? new SimpleDateFormat(MMMMM_YYYY).format(date) : null;
+		return date != null ? MMMMM_YYYY.print(new DateTime(date, timeZone)) : null;
 	}
 	
 	public String month(Date date) {
-		return date != null ? new SimpleDateFormat(MMM).format(date) : null;
+		return date != null ? MMM.print(new DateTime(date, timeZone)): null;
 	}
 
 	public String year(Date date) {
-		return date != null ? new SimpleDateFormat(YYYY).format(date) : null;
+		return date != null ? YYYY.print(new DateTime(date, timeZone)) : null;
 	}
 	
 	public String w3cDateTime(Date date) {
-		return date != null ? new SimpleDateFormat(W3C_DATETIME_FORMAT).format(date) : null;
+		return date != null ? W3C_DATETIME_FORMAT.print(new DateTime(date, timeZone)) : null;
 	}
 
 	public String yearMonthDayUrlStub(Date date) {
-		return date != null ? new SimpleDateFormat("yyyy/MMM/d").format(date).toLowerCase() : null;
+		return date != null ? YEAR_SLASH_MONTH_SLASH_DAY.print(new DateTime(date, timeZone)).toLowerCase() : null;
 	}
 
 	public String yearMonthUrlStub(Date date) {
-		return date != null ? new SimpleDateFormat("yyyy/MMM").format(date).toLowerCase() : null;
+		return date != null ? YEAR_SLASH_MONTH.print(new DateTime(date, timeZone)).toLowerCase() : null;
 	}
 	
 	public String secondsToDuration(int seconds) {
