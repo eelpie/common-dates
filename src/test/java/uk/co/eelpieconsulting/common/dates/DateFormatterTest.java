@@ -18,7 +18,7 @@ public class DateFormatterTest {
 	
 	@Test
     public void shouldBeAbleToOutputNiceTimeDeltas() throws Exception {    	
-    	final DateTime now = new DateTime();
+    	final DateTime now = DateTime.now().minusSeconds(1);
     	
     	DateTime lessThanOneMinuteAgo = now.minusSeconds(30);
     	assertEquals("just now", dateFormatter.timeSince(lessThanOneMinuteAgo.toDate()));
@@ -46,7 +46,7 @@ public class DateFormatterTest {
 	public void niceTimeDeltaCanBeOutputInAlterativeLangauges() throws Exception {
 		DateFormatter spanishDateFormatter = new DateFormatter(EUROPE_LONDON, "es");
 
-    	final DateTime now = new DateTime();
+    	final DateTime now = DateTime.now().minusSeconds(1);
 
 		DateTime lessThanOneMinuteAgo = now.minusSeconds(30);
     	assertEquals("En este momento", spanishDateFormatter.timeSince(lessThanOneMinuteAgo.toDate()));
@@ -55,8 +55,23 @@ public class DateFormatterTest {
 		assertEquals("Hace 1 minuto", spanishDateFormatter.timeSince(oneMinuteAgo.toDate()));
 		
 		DateTime fiveMinutesBefore = now.minusMinutes(5);
-        assertEquals("Hace 5 minutos", spanishDateFormatter.timeSince(fiveMinutesBefore.toDate()));        
-	}
+        assertEquals("Hace 5 minutos", spanishDateFormatter.timeSince(fiveMinutesBefore.toDate()));
+        
+        DateTime anHourAgo = now.minusHours(1);
+        assertEquals("Hace 1 hora", spanishDateFormatter.timeSince(anHourAgo.toDate()));
+        
+        DateTime twoHoursAgo = now.minusHours(2);
+        assertEquals("Hace 2 horas", spanishDateFormatter.timeSince(twoHoursAgo.toDate()));
+                
+        DateTime oneDayAgo = now.minusDays(1);
+        assertEquals("Hace 1 d’a", spanishDateFormatter.timeSince(oneDayAgo.toDate()));
+        
+        DateTime oneWeekAgo = now.minusWeeks(1).minusHours(1);
+        assertEquals("Hace 1 semana", spanishDateFormatter.timeSince(oneWeekAgo.toDate()));
+        
+        DateTime nineMonthsAgo = now.minusMonths(9).minusWeeks(1);
+        assertEquals("Hace 9 meses", spanishDateFormatter.timeSince(nineMonthsAgo.toDate()));        
+    }
 	
 	@Test
     public void shouldBeAbleToOutputNiceTimeDeltaForDatesInTheFuture() throws Exception {

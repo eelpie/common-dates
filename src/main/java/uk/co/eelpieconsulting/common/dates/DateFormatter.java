@@ -58,11 +58,29 @@ public class DateFormatter {
 		englishPhrases.put("just now", "just now");
 		englishPhrases.put("1 minute ago", "1 minute ago");
 		englishPhrases.put("minutes ago", "? minutes ago");
+		englishPhrases.put("1 hour ago", "1 hour ago");
+		englishPhrases.put("hours ago", "? hours ago");
+		englishPhrases.put("1 day ago", "1 day ago");
+		englishPhrases.put("days ago", "? days ago");
+		englishPhrases.put("1 week ago", "1 week ago");
+		englishPhrases.put("weeks ago", "? weeks ago");	
+		englishPhrases.put("1 month ago", "1 month ago");
+		englishPhrases.put("months ago", "? months ago");
+		
+	
 		
 		Map<String, String> spanishPhrases = new HashMap<String, String>();
 		spanishPhrases.put("just now", "En este momento");
 		spanishPhrases.put("1 minute ago", "Hace 1 minuto");
 		spanishPhrases.put("minutes ago", "Hace ? minutos");
+		spanishPhrases.put("1 hour ago", "Hace 1 hora");
+		spanishPhrases.put("hours ago", "Hace ? horas");
+		spanishPhrases.put("1 day ago", "Hace 1 d’a");
+		spanishPhrases.put("days ago", "Hace ? d’as");
+		spanishPhrases.put("1 week ago", "Hace 1 semana");
+		spanishPhrases.put("weeks ago", "Hace ? semanas");	
+		spanishPhrases.put("1 month ago", "Hace 1 mes");
+		spanishPhrases.put("months ago", "Hace ? meses");
 		
 		phrases = new HashMap<String, Map<String, String>>();
 		phrases.put(ENGLISH, englishPhrases);
@@ -102,20 +120,20 @@ public class DateFormatter {
         }
         
         if (deltaInMills > ONE_MONTH) {        		
-    		final long months = Months.monthsBetween(new DateTime(then), DateTime.now()).getMonths();
-    		return months + (months == 1 ? " month ago" : " months ago");
+    		final int months = Months.monthsBetween(new DateTime(then), DateTime.now()).getMonths();
+        	return months == 1 ? phrase("1 month ago") : phrase("months ago", months);
     	}        
         if (deltaInMills > ONE_WEEK) {
-        	final int weeks = Math.round((deltaInMills / (1000 * 60 * 60 * 24 * 7)));        	
-        	return weeks + (weeks == 1 ? " week ago" : " weeks ago"); 
+        	final int weeks = Math.round((deltaInMills / (1000 * 60 * 60 * 24 * 7)));
+        	return weeks == 1 ? phrase("1 week ago") : phrase("weeks ago", weeks);
         }        
         if (deltaInMills > ONE_DAY) {
         	final int days = Math.round((deltaInMills / (1000 * 60 * 60 * 24)));
-        	return days + (days == 1 ? " day ago" : " days ago");
-        }        
+        	return days == 1 ? phrase("1 day ago") : phrase("days ago", days);
+        }
         if (deltaInMills > ONE_HOUR) {
         	final int hours = Math.round((deltaInMills / (1000 * 60 * 60)));
-        	return hours + (hours == 1 ? " hour ago" : " hours ago");
+        	return hours == 1 ? phrase("1 hour ago") : phrase("hours ago", hours);
         }
         if (deltaInMills > ONE_MINUTE) {        	
         	final int minutes = Math.round(deltaInMills / (1000 * 60));
