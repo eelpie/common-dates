@@ -63,7 +63,7 @@ public class DateFormatterTest {
         assertEquals("Hace 2 horas", spanishDateFormatter.timeSince(twoHoursAgo.toDate()));
                 
         DateTime oneDayAgo = now.minusDays(1);
-        assertEquals("Hace 1 día", spanishDateFormatter.timeSince(oneDayAgo.toDate()));
+        assertEquals("Hace 1 d√≠a", spanishDateFormatter.timeSince(oneDayAgo.toDate()));
         
         DateTime oneWeekAgo = now.minusWeeks(1).minusHours(1);
         assertEquals("Hace 1 semana", spanishDateFormatter.timeSince(oneWeekAgo.toDate()));

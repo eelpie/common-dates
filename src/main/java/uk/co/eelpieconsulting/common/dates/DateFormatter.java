@@ -88,8 +88,8 @@ public class DateFormatter {
 		spanishPhrases.put("minutes ago", "Hace ? minutos");
 		spanishPhrases.put("1 hour ago", "Hace 1 hora");
 		spanishPhrases.put("hours ago", "Hace ? horas");
-		spanishPhrases.put("1 day ago", "Hace 1 día");
-		spanishPhrases.put("days ago", "Hace ? días");
+		spanishPhrases.put("1 day ago", "Hace 1 d√≠a");
+		spanishPhrases.put("days ago", "Hace ? d√≠as");
 		spanishPhrases.put("1 week ago", "Hace 1 semana");
 		spanishPhrases.put("weeks ago", "Hace ? semanas");	
 		spanishPhrases.put("1 month ago", "Hace 1 mes");
