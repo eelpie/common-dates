@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.joda.time.DateTime;
@@ -54,15 +55,17 @@ public class DateFormatter {
 		this.timeZone = timeZone;
 		this.language = language;
 				
-		MMM = DateTimeFormat.forPattern("MMM");
-		YYYY = DateTimeFormat.forPattern("yyyy");
-		D_MMM_YYYY = DateTimeFormat.forPattern("d MMM yyyy");
-		MMMMM_YYYY = DateTimeFormat.forPattern("MMMMM yyyy");
-		D_MMM_YYYY_HHMM = DateTimeFormat.forPattern("d MMM yyyy HH:mm");
-		D_MMM_YYYY_HHMMSS = DateTimeFormat.forPattern("d MMM yyyy HH:mm:ss");
-		W3C_DATETIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZZ");
-		YEAR_SLASH_MONTH = DateTimeFormat.forPattern("yyyy/MMM");
-		YEAR_SLASH_MONTH_SLASH_DAY = DateTimeFormat.forPattern("yyyy/MMM/d");
+		Locale locale = Locale.getDefault();
+		
+		MMM = DateTimeFormat.forPattern("MMM").withLocale(locale);
+		YYYY = DateTimeFormat.forPattern("yyyy").withLocale(locale);
+		D_MMM_YYYY = DateTimeFormat.forPattern("d MMM yyyy").withLocale(locale);
+		MMMMM_YYYY = DateTimeFormat.forPattern("MMMMM yyyy").withLocale(locale);
+		D_MMM_YYYY_HHMM = DateTimeFormat.forPattern("d MMM yyyy HH:mm").withLocale(locale);
+		D_MMM_YYYY_HHMMSS = DateTimeFormat.forPattern("d MMM yyyy HH:mm:ss").withLocale(locale);
+		W3C_DATETIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZZ").withLocale(locale);
+		YEAR_SLASH_MONTH = DateTimeFormat.forPattern("yyyy/MMM").withLocale(locale);
+		YEAR_SLASH_MONTH_SLASH_DAY = DateTimeFormat.forPattern("yyyy/MMM/d").withLocale(locale);
 		
 		Map<String, String> englishPhrases = new HashMap<String, String>();
 		englishPhrases.put("just now", "just now");
