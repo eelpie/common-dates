@@ -30,6 +30,7 @@ public class DateFormatter {
 	private final DateTimeFormatter YYYY;
     private final DateTimeFormatter D_MMM_YYYY;
     private final DateTimeFormatter MMMMM_YYYY;
+    private final DateTimeFormatter D_MMMMM_YYYY;
     private final DateTimeFormatter D_MMM_YYYY_HHMM;
     private final DateTimeFormatter D_MMM_YYYY_HHMMSS;
     private final DateTimeFormatter W3C_DATETIME_FORMAT;
@@ -55,12 +56,13 @@ public class DateFormatter {
 		this.timeZone = timeZone;
 		this.language = language;
 				
-		Locale locale = Locale.getDefault();
+		Locale locale = new Locale(language);
 		
 		MMM = DateTimeFormat.forPattern("MMM").withLocale(locale);
 		YYYY = DateTimeFormat.forPattern("yyyy").withLocale(locale);
 		D_MMM_YYYY = DateTimeFormat.forPattern("d MMM yyyy").withLocale(locale);
 		MMMMM_YYYY = DateTimeFormat.forPattern("MMMMM yyyy").withLocale(locale);
+		D_MMMMM_YYYY = DateTimeFormat.forPattern("d MMMMM yyyy").withLocale(locale);
 		D_MMM_YYYY_HHMM = DateTimeFormat.forPattern("d MMM yyyy HH:mm").withLocale(locale);
 		D_MMM_YYYY_HHMMSS = DateTimeFormat.forPattern("d MMM yyyy HH:mm:ss").withLocale(locale);
 		W3C_DATETIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZZ").withLocale(locale);
@@ -190,6 +192,10 @@ public class DateFormatter {
 	
 	public String fullMonthYear(Date date) {
 		return date != null ? MMMMM_YYYY.print(new DateTime(date, timeZone)) : null;
+	}
+	
+	public String fullDayMonthYear(Date date) {
+		return date != null ? D_MMMMM_YYYY.print(new DateTime(date, timeZone)) : null;
 	}
 	
 	public String month(Date date) {

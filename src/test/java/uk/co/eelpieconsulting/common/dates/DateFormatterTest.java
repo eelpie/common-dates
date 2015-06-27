@@ -13,6 +13,7 @@ public class DateFormatterTest {
 	private static final DateTimeZone EUROPE_LONDON = DateTimeZone.forID("Europe/London");
 	
 	private final DateFormatter dateFormatter = new DateFormatter(EUROPE_LONDON);
+	private final DateFormatter spanishDateFormatter = new DateFormatter(EUROPE_LONDON, "es");
 
 	private final Date onceUponATime = new DateTime(2009, 10, 2, 14, 23, 10, 0, EUROPE_LONDON).toDate();
 	
@@ -44,8 +45,6 @@ public class DateFormatterTest {
 	
 	@Test
 	public void niceTimeDeltaCanBeOutputInAlterativeLangauges() throws Exception {
-		DateFormatter spanishDateFormatter = new DateFormatter(EUROPE_LONDON, "es");
-
     	final DateTime now = DateTime.now().minusSeconds(1);
 
 		DateTime lessThanOneMinuteAgo = now.minusSeconds(30);
@@ -104,8 +103,28 @@ public class DateFormatterTest {
 	}
 	
 	@Test
+	public void canGenerateShortDayMonthYearFormatInAlternativeLanguages() throws Exception {
+		assertEquals("2 oct 2009", spanishDateFormatter.dayMonthYear(onceUponATime));
+	}
+	
+	@Test
 	public void canGenerateFullMonthYearFormat() throws Exception {
 		assertEquals("October 2009", dateFormatter.fullMonthYear(onceUponATime));
+	}
+
+	@Test
+	public void canGenerateFullMonthYearFormatInAlternativeLanguages() throws Exception {
+		assertEquals("octubre 2009", spanishDateFormatter.fullMonthYear(onceUponATime));
+	}
+	
+	@Test
+	public void canGenerateFullDayMonthYearFormat() throws Exception {
+		assertEquals("2 October 2009", dateFormatter.fullDayMonthYear(onceUponATime));
+	}
+	
+	@Test
+	public void canGenerateDayFullMonthYearFormatInAlternativeLanguages() throws Exception {
+		assertEquals("2 octubre 2009", spanishDateFormatter.fullDayMonthYear(onceUponATime));
 	}
 	
 	@Test
@@ -121,6 +140,11 @@ public class DateFormatterTest {
 	@Test
 	public void canGenerateW3CDateTimeFormattedDate() throws Exception {		
 		assertEquals("2009-10-02T14:23:10+01:00", dateFormatter.w3cDateTime(onceUponATime));
+	}
+	
+	@Test
+	public void alternativeLanguageFormattersCanStillGenerateValueW3CDateTimeFormattedDate() throws Exception {		
+		assertEquals("2009-10-02T14:23:10+01:00", spanishDateFormatter.w3cDateTime(onceUponATime));
 	}
 	
 	@Test
