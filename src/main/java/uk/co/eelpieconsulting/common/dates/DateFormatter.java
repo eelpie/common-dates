@@ -98,7 +98,7 @@ public class DateFormatter {
 				final int minutes = -Math.round(deltaInMills / (1000 * 60));
 				return minutes + (minutes == 1 ? " minute" : " minutes");
 			}
-			return phrase("just now", language);
+			return phrase("just now");
         }
         
         if (deltaInMills > ONE_MONTH) {        		
@@ -119,18 +119,18 @@ public class DateFormatter {
         }
         if (deltaInMills > ONE_MINUTE) {        	
         	final int minutes = Math.round(deltaInMills / (1000 * 60));
-        	return minutes == 1 ? phrase("1 minute ago", language) : phrase("minutes ago", language, minutes);
+        	return minutes == 1 ? phrase("1 minute ago") : phrase("minutes ago", minutes);
         }
         
-		return phrase("just now", language);
+		return phrase("just now");
     }
 
-	private String phrase(String key, String language, int minutes) {
+	private String phrase(String key, int minutes) {
 		String phrase = getKey(key, language);
 		return phrase != null ? phrase.replace("?", Integer.toString(minutes)) : "";
 	}
 
-	private String phrase(String key, String language) {
+	private String phrase(String key) {
 		String phrase = getKey(key, language);
 		return phrase != null ? phrase : "";
 	}
