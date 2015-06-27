@@ -3,6 +3,8 @@ package uk.co.eelpieconsulting.common.dates;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -13,6 +15,10 @@ import org.joda.time.format.DateTimeFormatter;
 
 public class DateFormatter {
 
+	private static final String ENGLISH = "en";
+	private static final String SPANISH = "es";
+	private static final String DEFAULT_LANGUAGE = ENGLISH;
+	
 	private static final long ONE_MINUTE = 60 * 1000;
 	private static final long ONE_HOUR = ONE_MINUTE * 60;
 	private static final long ONE_DAY = ONE_HOUR * 24;
@@ -32,15 +38,33 @@ public class DateFormatter {
 	private static final DecimalFormat TWO_DIGITS = new DecimalFormat("00");
 	
 	private final DateTimeZone timeZone;
+	private final String language;
+	
+	private final Map<String, Map<String, String>> phrases;
 	
 	public DateFormatter(String timeZoneId) {
-		this.timeZone = DateTimeZone.forID(timeZoneId);		
+		this(DateTimeZone.forID(timeZoneId));
 	}
 	
 	public DateFormatter(DateTimeZone timeZone) {
-		this.timeZone = timeZone;
+		this(timeZone, ENGLISH);
 	}
 
+	public DateFormatter(DateTimeZone timeZone, String language) {
+		this.timeZone = timeZone;
+		this.language = language;
+		
+		Map<String, String> englishPhrases = new HashMap<String, String>();
+		englishPhrases.put("just now", "just now");
+		
+		Map<String, String> spanishPhrases = new HashMap<String, String>();
+		spanishPhrases.put("just now", "En este momento");
+		
+		phrases = new HashMap<String, Map<String, String>>();
+		phrases.put(ENGLISH, englishPhrases);
+		phrases.put(SPANISH, spanishPhrases);
+	}
+	
 	public String timeSince(Date then) {
 		if (then == null) {
 			return null;
@@ -70,7 +94,7 @@ public class DateFormatter {
 				final int minutes = -Math.round(deltaInMills / (1000 * 60));
 				return minutes + (minutes == 1 ? " minute" : " minutes");
 			}
-			return "just now";
+			return phrase("just now", language);
         }
         
         if (deltaInMills > ONE_MONTH) {        		
@@ -92,9 +116,22 @@ public class DateFormatter {
         if (deltaInMills > ONE_MINUTE) {        	
         	final int minutes = Math.round(deltaInMills / (1000 * 60));
         	return minutes + (minutes == 1 ? " minute ago" : " minutes ago");
-        }       
-        return "just now";
+        }
+        
+		return phrase("just now", language);
     }
+
+	private String phrase(String key, String language) {
+		if (!phrases.containsKey(language)) {
+			language = DEFAULT_LANGUAGE;
+		}
+		
+		Map<String, String> languagePhrases = phrases.get(language);
+		if (languagePhrases.containsKey(key)) {
+			return languagePhrases.get(key);
+		}
+		return "";
+	}
 
 	public String dayMonthYear(Date date) {
 		return date != null ? D_MMM_YYYY.print(new DateTime(date, timeZone)) : null;

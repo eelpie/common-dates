@@ -43,6 +43,19 @@ public class DateFormatterTest {
     }
 	
 	@Test
+	public void niceTimeDeltaCanBeOutputInAlterativeLangauges() throws Exception {
+		DateFormatter spanishDateFormatter = new DateFormatter(EUROPE_LONDON, "es");
+
+    	final DateTime now = new DateTime();
+
+		DateTime lessThanOneMinuteAgo = now.minusSeconds(30);
+    	assertEquals("En este momento", spanishDateFormatter.timeSince(lessThanOneMinuteAgo.toDate()));
+
+		//DateTime anHourAgo = DateTime.now().minusHours(1);
+		//assertEquals("Hace 1 minuto", spanishDateFormatter.timeSince(anHourAgo.toDate()));	       
+	}
+	
+	@Test
     public void shouldBeAbleToOutputNiceTimeDeltaForDatesInTheFuture() throws Exception {
 		final DateTime now = new DateTime();
     	
