@@ -25,15 +25,15 @@ public class DateFormatter {
 	private static final long ONE_WEEK = ONE_DAY * 7;
 	private static final long ONE_MONTH = ONE_DAY * 31;
 	
-	private static final DateTimeFormatter MMM = DateTimeFormat.forPattern("MMM");
-	private static final DateTimeFormatter YYYY = DateTimeFormat.forPattern("yyyy");
-    private static final DateTimeFormatter D_MMM_YYYY = DateTimeFormat.forPattern("d MMM yyyy");
-    private static final DateTimeFormatter MMMMM_YYYY = DateTimeFormat.forPattern("MMMMM yyyy");
-    private static final DateTimeFormatter D_MMM_YYYY_HHMM = DateTimeFormat.forPattern("d MMM yyyy HH:mm");
-    private static final DateTimeFormatter D_MMM_YYYY_HHMMSS = DateTimeFormat.forPattern("d MMM yyyy HH:mm:ss");
-    private static final DateTimeFormatter W3C_DATETIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZZ");
-	private static final DateTimeFormatter YEAR_SLASH_MONTH = DateTimeFormat.forPattern("yyyy/MMM");
-	private static final DateTimeFormatter YEAR_SLASH_MONTH_SLASH_DAY = DateTimeFormat.forPattern("yyyy/MMM/d");
+	private final DateTimeFormatter MMM;
+	private final DateTimeFormatter YYYY;
+    private final DateTimeFormatter D_MMM_YYYY;
+    private final DateTimeFormatter MMMMM_YYYY;
+    private final DateTimeFormatter D_MMM_YYYY_HHMM;
+    private final DateTimeFormatter D_MMM_YYYY_HHMMSS;
+    private final DateTimeFormatter W3C_DATETIME_FORMAT;
+	private final DateTimeFormatter YEAR_SLASH_MONTH;
+	private final DateTimeFormatter YEAR_SLASH_MONTH_SLASH_DAY;
 
 	private static final DecimalFormat TWO_DIGITS = new DecimalFormat("00");
 	
@@ -53,6 +53,16 @@ public class DateFormatter {
 	public DateFormatter(DateTimeZone timeZone, String language) {
 		this.timeZone = timeZone;
 		this.language = language;
+				
+		MMM = DateTimeFormat.forPattern("MMM");
+		YYYY = DateTimeFormat.forPattern("yyyy");
+		D_MMM_YYYY = DateTimeFormat.forPattern("d MMM yyyy");
+		MMMMM_YYYY = DateTimeFormat.forPattern("MMMMM yyyy");
+		D_MMM_YYYY_HHMM = DateTimeFormat.forPattern("d MMM yyyy HH:mm");
+		D_MMM_YYYY_HHMMSS = DateTimeFormat.forPattern("d MMM yyyy HH:mm:ss");
+		W3C_DATETIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZZ");
+		YEAR_SLASH_MONTH = DateTimeFormat.forPattern("yyyy/MMM");
+		YEAR_SLASH_MONTH_SLASH_DAY = DateTimeFormat.forPattern("yyyy/MMM/d");
 		
 		Map<String, String> englishPhrases = new HashMap<String, String>();
 		englishPhrases.put("just now", "just now");
@@ -66,8 +76,6 @@ public class DateFormatter {
 		englishPhrases.put("weeks ago", "? weeks ago");	
 		englishPhrases.put("1 month ago", "1 month ago");
 		englishPhrases.put("months ago", "? months ago");
-		
-	
 		
 		Map<String, String> spanishPhrases = new HashMap<String, String>();
 		spanishPhrases.put("just now", "En este momento");
