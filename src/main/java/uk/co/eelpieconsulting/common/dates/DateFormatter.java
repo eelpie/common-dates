@@ -56,9 +56,13 @@ public class DateFormatter {
 		
 		Map<String, String> englishPhrases = new HashMap<String, String>();
 		englishPhrases.put("just now", "just now");
+		englishPhrases.put("1 minute ago", "1 minute ago");
+		englishPhrases.put("minutes ago", "? minutes ago");
 		
 		Map<String, String> spanishPhrases = new HashMap<String, String>();
 		spanishPhrases.put("just now", "En este momento");
+		spanishPhrases.put("1 minute ago", "Hace 1 minuto");
+		spanishPhrases.put("minutes ago", "Hace ? minutos");
 		
 		phrases = new HashMap<String, Map<String, String>>();
 		phrases.put(ENGLISH, englishPhrases);
@@ -115,13 +119,23 @@ public class DateFormatter {
         }
         if (deltaInMills > ONE_MINUTE) {        	
         	final int minutes = Math.round(deltaInMills / (1000 * 60));
-        	return minutes + (minutes == 1 ? " minute ago" : " minutes ago");
+        	return minutes == 1 ? phrase("1 minute ago", language) : phrase("minutes ago", language, minutes);
         }
         
 		return phrase("just now", language);
     }
 
+	private String phrase(String key, String language, int minutes) {
+		String phrase = getKey(key, language);
+		return phrase != null ? phrase.replace("?", Integer.toString(minutes)) : "";
+	}
+
 	private String phrase(String key, String language) {
+		String phrase = getKey(key, language);
+		return phrase != null ? phrase : "";
+	}
+
+	private String getKey(String key, String language) {
 		if (!phrases.containsKey(language)) {
 			language = DEFAULT_LANGUAGE;
 		}
@@ -130,7 +144,7 @@ public class DateFormatter {
 		if (languagePhrases.containsKey(key)) {
 			return languagePhrases.get(key);
 		}
-		return "";
+		return null;
 	}
 
 	public String dayMonthYear(Date date) {

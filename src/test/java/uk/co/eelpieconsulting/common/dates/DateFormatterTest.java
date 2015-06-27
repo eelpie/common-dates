@@ -51,8 +51,11 @@ public class DateFormatterTest {
 		DateTime lessThanOneMinuteAgo = now.minusSeconds(30);
     	assertEquals("En este momento", spanishDateFormatter.timeSince(lessThanOneMinuteAgo.toDate()));
 
-		//DateTime anHourAgo = DateTime.now().minusHours(1);
-		//assertEquals("Hace 1 minuto", spanishDateFormatter.timeSince(anHourAgo.toDate()));	       
+    	DateTime oneMinuteAgo = now.minusSeconds(70);
+		assertEquals("Hace 1 minuto", spanishDateFormatter.timeSince(oneMinuteAgo.toDate()));
+		
+		DateTime fiveMinutesBefore = now.minusMinutes(5);
+        assertEquals("Hace 5 minutos", spanishDateFormatter.timeSince(fiveMinutesBefore.toDate()));        
 	}
 	
 	@Test
