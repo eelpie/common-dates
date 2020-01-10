@@ -104,7 +104,7 @@ public class DateFormatterTest {
 	
 	@Test
 	public void canGenerateShortDayMonthYearFormatInAlternativeLanguages() throws Exception {
-		assertEquals("2 oct 2009", spanishDateFormatter.dayMonthYear(onceUponATime));
+		assertEquals("2 oct. 2009", spanishDateFormatter.dayMonthYear(onceUponATime));
 	}
 	
 	@Test
